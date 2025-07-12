@@ -1,0 +1,28 @@
+# Core
+
+python-dotenv==1.0.0
+psycopg2-binary==2.9.6
+
+# Telegram
+telethon==1.28.5
+
+# Data processing
+pandas==2.0.3
+sqlalchemy==2.0.19
+
+# dbt
+dbt-postgres
+
+# API
+fastapi==0.95.2
+uvicorn==0.22.0
+
+# YOLO
+ultralytics==8.0.196
+
+# Orchestration
+dagster
+dagster-postgres
+dagster-webserver
+
+opencv-python-headless==4.7.0.72

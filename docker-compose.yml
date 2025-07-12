@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: habte@1234
+      POSTGRES_DB: telegram_medical
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./data:/app/data
+
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=telegram_medical
+      - DB_USER=postgres
+      - DB_PASSWORD=habte@1234
+    volumes:
+      - .:/app
+      - ./data:/app/data
+    command: >
+      sh -c "python src/db_utils.py &&
+             python src/telegram_client.py &&
+             python src/data_pipeline.py &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  postgres_data:
