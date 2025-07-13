@@ -2,7 +2,7 @@
 
 python-dotenv==1.0.0
 psycopg2-binary==2.9.6
-
+python-multipart==0.0.6
 # Telegram
 telethon==1.28.5
 
@@ -16,7 +16,7 @@ dbt-postgres
 # API
 fastapi==0.95.2
 uvicorn==0.22.0
-
+slowapi==0.1.7
 # YOLO
 ultralytics==8.0.196
 
@@ -26,3 +26,6 @@ dagster-postgres
 dagster-webserver
 
 opencv-python-headless==4.7.0.72
+
+
+

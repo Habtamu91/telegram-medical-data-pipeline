@@ -1,0 +1,55 @@
+version: 2
+
+sources:
+  - name: telegram_raw
+    description: "Raw Telegram data loaded from JSON files"
+    tables:
+      - name: messages
+        description: "Raw message data from Telegram scraping"
+        columns:
+          - name: message_id
+            description: "Unique message identifier"
+            tests:
+              - unique
+              - not_null
+          
+          - name: channel_id
+            description: "Foreign key to channels table"
+            tests:
+              - relationships:
+                  to: ref('stg_telegram_channels')
+                  field: channel_key
+
+      - name: channels
+        description: "Telegram channel metadata"
+        columns:
+          - name: channel_id
+            tests:
+              - unique
+              - not_null
+
+models:
+  - name: stg_telegram_messages
+    description: "Cleaned and standardized Telegram messages"
+    columns:
+      - name: message_key
+        description: "Primary key for messages"
+        tests:
+          - unique
+          - not_null
+          
+      - name: channel_key
+        description: "Foreign key to channels dimension"
+        tests:
+          - relationships:
+              to: ref('stg_telegram_channels')
+              field: channel_key
+
+  - name: stg_telegram_channels
+    description: "Cleaned Telegram channel information"
+    columns:
+      - name: channel_key
+        description: "Primary key for channels"
+        tests:
+          - unique
+          - not_null
